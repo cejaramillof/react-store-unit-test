@@ -39,7 +39,7 @@ const reverseString = (str, callback) => {
     str
       .split('')
       .reverse()
-      .join('')
+      .join(''),
   );
 };
 
@@ -47,7 +47,7 @@ test('Probar un callback', () => {
   reverseString('Hola', str => expect(str).toBe('aloH'));
 });
 
-const reverseStringPromise = str => {
+const reverseStringPromise = (str) => {
   return new Promise((resolve, reject) => {
     if (!str || str == '') {
       reject(new Error('Error'));
@@ -56,7 +56,7 @@ const reverseStringPromise = str => {
         str
           .split('')
           .reverse()
-          .join('')
+          .join(''),
       );
     }
   });
