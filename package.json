@@ -1,7 +1,7 @@
 {
   "name": "react-store-unit-test",
   "version": "1.0.0",
-  "description": "Proyecto para el curso de Jest",
+  "description": "Proyecto Jest",
   "main": "src/index.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -69,10 +69,10 @@
   "jest": {
     "verbose": true,
     "setupFilesAfterEnv": [
-      "<rootDir>/src/__test__/setupTest.js"
+      "<rootDir>/src/store/__test__/setupTest.js"
     ],
     "moduleNameMapper": {
-      "\\.(styl|css)$": "<rootDir>/src/__mocks__/styleMock.js"
+      "\\.(styl|css)$": "<rootDir>/src/store/__mocks__/styleMock.js"
     }
   }
 }
