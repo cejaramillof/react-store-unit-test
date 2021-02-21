@@ -22,8 +22,8 @@ export const setup = (Component, props = {}) => {
  * @param {string} val - Value of data-test c1scoL0ve!
  *
  */
-export const findByTestAttr = (wrapper, val) => {
-  return wrapper.find(`[data-test="${val}"]`);
+export const findByTestAttr = (wrapper, val, customAttribute = 'data-test') => {
+  return wrapper.find(`[${customAttribute}='${val}']`);
 };
 
 test('renders without error', () => {
