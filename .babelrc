@@ -7,6 +7,11 @@
     "babel-plugin-transform-class-properties"
   ],
   "env": {
+    "production": {
+      "plugins": [
+        [ "react-remove-properties", { "properties": [ "data-test" ] } ]
+      ]
+    },
     "test": {
       "plugins": ["@babel/plugin-transform-runtime"]
     }
