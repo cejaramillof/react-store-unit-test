@@ -4,6 +4,7 @@
 // learn more: https://github.com/testing-library/jest-dom
 // import '@testing-library/jest-dom/extend-expect';
 
+// This file is runned before each test file
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
