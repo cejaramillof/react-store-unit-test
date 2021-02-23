@@ -78,7 +78,7 @@ describe('error when counter goes below 0', () => {
     // using enzyme's ".hasClass()" method
     // http://airbnb.io/enzyme/docs/api/ShallowWrapper/hasClass.html
     const errorHasHiddenClass = errorDiv.hasClass('hidden');
-    console.log(wrapper.debug());
+    // console.log(wrapper.debug());
     expect(errorHasHiddenClass).toBe(true);
   });
 
