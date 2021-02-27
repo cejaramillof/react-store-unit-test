@@ -7,7 +7,8 @@ import { createStore } from 'redux';
 import initialState from './store/initialState';
 import reducer from './store/reducers';
 
-import App from './counter/App';
+// import App from './counter/App';
+import App from './jotto/context/App';
 
 import './index.css';
 
