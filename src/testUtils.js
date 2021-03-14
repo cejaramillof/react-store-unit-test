@@ -1,6 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { checkPropTypes } from 'prop-types';
+import { createStore } from 'redux';
+import rootReducer from './store/reducers';
+
+/**
+ * Create a testing store with imported reducers, middleware, and initial state,
+ * Globals: rootReducer.
+ * @param {object} initialState - Initial state for store.
+ * @function storeFactory
+ * @returns {Store} - Redux store.
+ */
+export const storeFactory = (initialState) => {
+  return createStore(rootReducer, initialState);
+};
 
 /**
  * Factory function to create a ShallowWrapper for the App component.

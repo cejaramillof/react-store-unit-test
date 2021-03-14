@@ -1,5 +1,5 @@
 import GuessedWords from './GuessedWords';
-import { findByTestAttr, setup, checkProps } from '../../testUtils';
+import { findByTestAttr, setup, checkProps } from '../testUtils';
 
 const defaultProps = {
   guessedWords: [{ guessedWord: 'T3STS', letterMatchCounter: 2 }],
