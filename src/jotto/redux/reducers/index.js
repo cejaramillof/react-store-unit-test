@@ -3,5 +3,5 @@ import success from './sucessReducer';
 
 export default combineReducers({
   success,
-  guessedWords,
+  // guessedWords,
 });

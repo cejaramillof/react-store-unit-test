@@ -1,5 +1,5 @@
 import Congrats from './Congrats';
-import { findByTestAttr, setup, checkProps } from '../../testUtils';
+import { findByTestAttr, setup, checkProps } from '../testUtils';
 
 test('render without error', () => {
   const wrapper = setup(Congrats, { success: false });
