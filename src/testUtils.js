@@ -1,18 +1,21 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { checkPropTypes } from 'prop-types';
-import { createStore } from 'redux';
-import rootReducer from './store/reducers';
+import { createStore, applyMiddleware } from 'redux';
+import rootReducer from './jotto/redux/reducers';
+import { middlewares } from './jotto/redux/configureStore';
 
 /**
  * Create a testing store with imported reducers, middleware, and initial state,
- * Globals: rootReducer.
+ * Globals: rootReducer, middlewares.
  * @param {object} initialState - Initial state for store.
  * @function storeFactory
  * @returns {Store} - Redux store.
  */
 export const storeFactory = (initialState) => {
-  return createStore(rootReducer, initialState);
+  // return createStore(rootReducer, initialState);
+  const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
+  return createStoreWithMiddleware(rootReducer, initialState);
 };
 
 /**
