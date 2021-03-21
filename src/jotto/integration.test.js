@@ -1,4 +1,4 @@
-import { storeFactory } from '../testUtils';
+import { storeFactory } from './testUtils';
 import { guessWord } from './redux/actions';
 
 describe('guessWord action dispatcher', () => {

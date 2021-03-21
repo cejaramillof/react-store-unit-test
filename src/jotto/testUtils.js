@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { checkPropTypes } from 'prop-types';
 import { createStore, applyMiddleware } from 'redux';
-import rootReducer from './jotto/redux/reducers';
-import { middlewares } from './jotto/redux/configureStore';
+import rootReducer from './redux/reducers';
+import { middlewares } from './redux/configureStore';
 
 /**
  * Create a testing store with imported reducers, middleware, and initial state,

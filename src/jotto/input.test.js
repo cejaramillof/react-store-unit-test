@@ -14,6 +14,7 @@ import Input from './Input';
 const setup = (initialState = {}) => {
   const store = storeFactory(initialState);
   const wrapper = shallow(<Input store={store} />).dive().dive();
+  // const wrapper = shallow(<Input store={store} />).dive().dive();
   // const wrapper = shallow(<Input store={store} />);
   // console.log(wrapper.debug());
   // console.log(wrapper.dive().debug());
@@ -60,11 +61,17 @@ describe('render', () => {
       expect(component.length).toBe(0);
     });
   });
-  describe('update state', () => {
-    test('renders component without error', () => {
-
+  describe('redux props', () => {
+    test('has success piece of state as prop', () => {
+      const success = true;
+      const wrapper = setup({ success });
+      const successProp = wrapper.instance().props.success;
+      expect(successProp).toBe(success);
     });
-    test('renders input box', () => {
+    test('`guessWord` action creator is a function prop', () => {
+      const wrapper = setup();
+      const guessWordProp = wrapper.instance().props.guessWord;
+      expect(guessWordProp).toBeInstanceOf(Function);
 
     });
     test('renders submit button', () => {
