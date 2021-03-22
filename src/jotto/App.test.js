@@ -1,9 +1,7 @@
 import React from 'react';
-import { shallow, ShallowWrapper } from 'enzyme';
-
-import { Provider } from 'react-redux';
-import { findByTestAttr, storeFactory } from './testUtils';
-import App from './App';
+import { shallow } from 'enzyme';
+import { storeFactory } from './testUtils';
+import App, { UnconnectedApp } from './App';
 
 /**
  * Factory function to create a ShallowWrapper for the App component.
@@ -17,7 +15,6 @@ const setup = (initialState = {}) => {
   return wrapper;
 };
 
-// const component = findByTestAttr(wrapper, 'component-input');
 describe('redux properties', () => {
   test('has access to `success` state', () => {
     const success = true;
@@ -41,5 +38,20 @@ describe('redux properties', () => {
     const wrapper = setup();
     const getSecretWordProp = wrapper.instance().props.getSecretWord;
     expect(getSecretWordProp).toBeInstanceOf(Function);
+  });
+});
+
+describe('redux properties Unconnected', () => {
+  test('`getSecretWord` runs on App mount', () => {
+    const getSecretWord = jest.fn();
+    const props = {
+      getSecretWord,
+      success: false,
+      guessedWords: [],
+    };
+    const wrapper = shallow(<UnconnectedApp {...props} />);
+    wrapper.instance().componentDidMount(); // run lifecycle method
+    const getSecretWordCallCount = getSecretWord.mock.calls.length;
+    expect(getSecretWordCallCount).toBe(1);
   });
 });

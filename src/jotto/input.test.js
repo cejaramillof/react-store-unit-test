@@ -1,7 +1,5 @@
 import React from 'react';
-import { mount, shallow, ShallowWrapper } from 'enzyme';
-
-import { Provider } from 'react-redux';
+import { shallow } from 'enzyme';
 import { findByTestAttr, storeFactory } from './testUtils';
 import Input from './Input';
 

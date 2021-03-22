@@ -8,5 +8,8 @@
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-configure({ adapter: new Adapter() });
+configure({
+  adapter: new Adapter(),
+  disableLifecycleMethods: true, // only will run when explicitly call it
+});
 global.fetch = require('jest-fetch-mock');
