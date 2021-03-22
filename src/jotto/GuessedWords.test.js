@@ -2,7 +2,7 @@ import GuessedWords from './GuessedWords';
 import { findByTestAttr, setup, checkProps } from './testUtils';
 
 const defaultProps = {
-  guessedWords: [{ guessedWord: 'T3STS', letterMatchCounter: 2 }],
+  guessedWords: [{ guessedWord: 'T3STS', letterMatchCount: 2 }],
 };
 
 test('does not throw warning with expected props', () => {
@@ -30,9 +30,9 @@ describe('if there are no words guessed', () => {
 describe('if there are words guessed', () => {
   let wrapper;
   const guessedWords = [
-    { guessedWord: 'train', letterMatchCounter: 3 },
-    { guessedWord: 'agile', letterMatchCounter: 1 },
-    { guessedWord: 'party', letterMatchCounter: 5 },
+    { guessedWord: 'train', letterMatchCount: 3 },
+    { guessedWord: 'agile', letterMatchCount: 1 },
+    { guessedWord: 'party', letterMatchCount: 5 },
   ];
 
   beforeEach(() => {
