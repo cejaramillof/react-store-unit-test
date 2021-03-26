@@ -81,9 +81,7 @@ describe('`guessWord` action creator call', () => {
   const guessedWord = 'train';
   beforeEach(() => {
     guessWordMock = jest.fn();
-    const props = {
-      guessWord: guessWordMock,
-    };
+    const props = { guessWord: guessWordMock };
     wrapper = shallow(<UnconnectedInput {...props} />);
 
     wrapper.setState({ currentGuess: guessedWord });
@@ -100,5 +98,9 @@ describe('`guessWord` action creator call', () => {
   test('calls `guessWord` with input value as argument', () => {
     const guessWordArg = guessWordMock.mock.calls[0][0];
     expect(guessWordArg).toBe(guessedWord);
+  });
+
+  test('input box clears on submit', () => {
+    expect(wrapper.state('currentGuess')).toBe('');
   });
 });
