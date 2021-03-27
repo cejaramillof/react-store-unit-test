@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Input from '.';
-import { checkProps, findByTestAttr } from '../../testUtils';
+import { checkProps, findByTestAttr } from '../../../testUtils';
 
 /*
 // Complety mock, when is used with destructuring

@@ -18,7 +18,7 @@ import {
   resetGame,
   setUserSecretWord,
   setUserEntering }
-  from '../redux/actions';
+  from '../../redux/actions';
 
 export class UnconnectedApp extends Component {
 

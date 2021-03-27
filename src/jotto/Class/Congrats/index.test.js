@@ -1,5 +1,5 @@
 import Congrats from '.';
-import { findByTestAttr, setup, checkProps } from '../../testUtils';
+import { findByTestAttr, setup, checkProps } from '../../../testUtils';
 
 const defaultProps = { success: false };
 

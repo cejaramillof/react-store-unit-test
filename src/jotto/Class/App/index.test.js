@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import App, { UnconnectedApp } from '.';
-import { storeFactory } from '../../testUtils';
+import { storeFactory } from '../../../testUtils';
 
 /**
  * Factory function to create a ShallowWrapper for the App component.

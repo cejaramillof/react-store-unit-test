@@ -1,5 +1,5 @@
-import { storeFactory } from './testUtils';
-import { guessWord, setUserSecretWord } from './redux/actions';
+import { storeFactory } from '../../testUtils';
+import { guessWord, setUserSecretWord } from '../redux/actions';
 
 describe('guessWord action dispatcher', () => {
   const secretWord = 'party';
