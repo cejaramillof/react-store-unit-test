@@ -3,6 +3,14 @@ import { shallow } from 'enzyme';
 import Input from '.';
 import { checkProps, findByTestAttr } from '../../testUtils';
 
+/*
+// Complety mock, when is used with destructuring
+const mockSetCurrentGuess = jest.fn();
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: initialState => [initialState, mockSetCurrentGuess],
+}));
+*/
 const defaultProps = { secretWord: 'Party' };
 
 /**
@@ -12,8 +20,7 @@ const defaultProps = { secretWord: 'Party' };
  * @returns {ShallowWrapper}
  */
 const setup = (state = defaultProps) => {
-  const wrapper = shallow(<Input {...state} />);
-  return wrapper;
+  return shallow(<Input {...state} />);
 };
 
 let wrapper;
@@ -36,10 +43,24 @@ describe('render', () => {
 });
 
 describe('state controlled input field', () => {
-  test('state updated with value of input box upon change', () => {
-    const mockSetCurrentGuess = jest.fn();
+  const mockSetCurrentGuess = jest.fn();
+  const originalUseState = React.useState;
+
+  beforeEach(() => {
+    mockSetCurrentGuess.mockClear();
     React.useState = jest.fn(() => ['', mockSetCurrentGuess]);
     wrapper = setup();
+  });
+
+  afterAll(() => {
+    React.useState = originalUseState;
+  });
+
+  test('state updated with value of input box upon change', () => {
+    // const mockSetCurrentGuess = jest.fn();
+    // React.useState = jest.fn(() => ['', mockSetCurrentGuess]);
+    // wrapper = setup();
+
     const inputBox = findByTestAttr(wrapper, 'input-box');
 
     const mockEvent = { target: { value: 'train' } };
@@ -47,5 +68,10 @@ describe('state controlled input field', () => {
 
     expect(mockSetCurrentGuess).toHaveBeenCalledWith('train');
   });
+  test('field is cleared upon submit button click', () => {
+    const submitButton = findByTestAttr(wrapper, 'submit-button');
 
+    submitButton.simulate('click', { preventDefault: jest.fn() });
+    expect(mockSetCurrentGuess).toHaveBeenCalledWith('');
+  });
 });

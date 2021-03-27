@@ -1,7 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+// import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function Input({ secretWord }) {
+  // const [currentGuess, setCurrentGuess] = useState('');
   const [currentGuess, setCurrentGuess] = React.useState('');
 
   return (
@@ -19,6 +21,10 @@ function Input({ secretWord }) {
           type="submit"
           data-test="submit-button"
           className="btn btn-primary mb-2"
+          onClick={(evt) => {
+            evt.preventDefault();
+            setCurrentGuess('');
+          }}
         >
           Submit
         </button>
