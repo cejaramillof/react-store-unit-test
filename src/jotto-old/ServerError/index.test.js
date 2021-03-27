@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { findByTestAttr } from '../testUtils';
+import { findByTestAttr } from '../../testUtils';
 import ServerError from '.';
 
 // no need for setup function here: no props or state
