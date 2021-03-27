@@ -1,5 +1,5 @@
-import GuessedWords from './GuessedWords';
-import { findByTestAttr, setup, checkProps } from './testUtils';
+import GuessedWords from '.';
+import { findByTestAttr, setup, checkProps } from '../testUtils';
 
 const defaultProps = {
   guessedWords: [{ guessedWord: 'T3STS', letterMatchCount: 2 }],
@@ -51,5 +51,11 @@ describe('if there are words guessed', () => {
     // console.log(wrapper.debug());
     const guessedWordsNode = findByTestAttr(wrapper, 'guessed-word');
     expect(guessedWordsNode.length).toBe(guessedWords.length);
+  });
+  test('includes guess word index for each word', () => {
+    const guessWordIndexes = findByTestAttr(wrapper, 'guessed-word-index');
+    const indexTextSet = new Set(guessWordIndexes.map(wrapper => wrapper.text()));
+    const expectedSet = new Set(guessedWords.map((word, index) => (index + 1).toString()));
+    expect(indexTextSet).toEqual(expectedSet);
   });
 });

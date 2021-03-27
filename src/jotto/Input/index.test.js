@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { findByTestAttr, storeFactory } from './testUtils';
-import Input, { UnconnectedInput } from './Input';
+import Input, { UnconnectedInput } from '.';
+import { findByTestAttr, storeFactory } from '../testUtils';
 
 /**
  * Factory function to create a ShallowWrapper for the GuessedWords component.
@@ -39,6 +39,10 @@ describe('render', () => {
       const component = findByTestAttr(wrapper, 'submit-button');
       expect(component.length).toBe(1);
     });
+    test('renders "give up" button', () => {
+      const giveUpButton = findByTestAttr(wrapper, 'give-up-button');
+      expect(giveUpButton.length).toBe(1);
+    });
   });
   describe('word has been guessed', () => {
     let wrapper;
@@ -75,6 +79,16 @@ describe('redux props', () => {
   });
 });
 
+test('calls `giveUp` prop upon "Give Up" button click', () => {
+  const giveUpMock = jest.fn();
+  const wrapper = shallow(<UnconnectedInput giveUp={giveUpMock} />);
+  const giveUpButton = findByTestAttr(wrapper, 'give-up-button');
+
+  giveUpButton.simulate('click', { preventDefault() {} });
+
+  expect(giveUpMock.mock.calls.length).toBe(1);
+});
+
 describe('`guessWord` action creator call', () => {
   let guessWordMock;
   let wrapper;
@@ -84,7 +98,8 @@ describe('`guessWord` action creator call', () => {
     const props = { guessWord: guessWordMock };
     wrapper = shallow(<UnconnectedInput {...props} />);
 
-    wrapper.setState({ currentGuess: guessedWord });
+    // wrapper.setState({ currentGuess: guessedWord });
+    wrapper.instance().inputBox.current = { value: guessedWord };
 
     const submitButton = findByTestAttr(wrapper, 'submit-button');
     submitButton.simulate('click', { preventDefault: jest.fn() });
@@ -101,6 +116,7 @@ describe('`guessWord` action creator call', () => {
   });
 
   test('input box clears on submit', () => {
-    expect(wrapper.state('currentGuess')).toBe('');
+    // expect(wrapper.state('currentGuess')).toBe('');
+    expect(wrapper.instance().inputBox.current.value).toBe('');
   });
 });

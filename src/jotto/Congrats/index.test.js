@@ -1,8 +1,10 @@
-import Congrats from './Congrats';
-import { findByTestAttr, setup, checkProps } from './testUtils';
+import Congrats from '.';
+import { findByTestAttr, setup, checkProps } from '../testUtils';
+
+const defaultProps = { success: false };
 
 test('render without error', () => {
-  const wrapper = setup(Congrats, { success: false });
+  const wrapper = setup(Congrats, { success: false }, defaultProps);
   const component = findByTestAttr(wrapper, 'component-congrats');
   expect(component.length).toBe(1);
 });

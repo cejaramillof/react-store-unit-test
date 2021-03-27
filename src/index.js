@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 
 // const store = createStore(reducer, initialState);
 
+import store from './jotto/redux/configureStore';
 // import App from './counter/App';
 import App from './jotto/App';
 

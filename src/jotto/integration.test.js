@@ -1,5 +1,5 @@
 import { storeFactory } from './testUtils';
-import { guessWord } from './redux/actions';
+import { guessWord, setUserSecretWord } from './redux/actions';
 
 describe('guessWord action dispatcher', () => {
   const secretWord = 'party';
@@ -17,6 +17,9 @@ describe('guessWord action dispatcher', () => {
       const expectedState = {
         ...initialState,
         success: false,
+        gaveUp: false,
+        userEnter: null,
+        serverError: false,
         guessedWords: [{
           guessedWord: unsuccessfulGuess,
           letterMatchCount: 3,
@@ -30,6 +33,9 @@ describe('guessWord action dispatcher', () => {
       const expectedState = {
         ...initialState,
         success: true,
+        gaveUp: false,
+        userEnter: null,
+        serverError: false,
         guessedWords: [{
           guessedWord: secretWord,
           letterMatchCount: 5,
@@ -52,6 +58,9 @@ describe('guessWord action dispatcher', () => {
       const expectedState = {
         secretWord,
         success: false,
+        gaveUp: false,
+        userEnter: null,
+        serverError: false,
         guessedWords: [
           ...guessedWords,
           {
@@ -67,6 +76,9 @@ describe('guessWord action dispatcher', () => {
       const expectedState = {
         secretWord,
         success: true,
+        gaveUp: false,
+        userEnter: null,
+        serverError: false,
         guessedWords: [
           ...guessedWords,
           {
@@ -76,5 +88,25 @@ describe('guessWord action dispatcher', () => {
       };
       expect(newState).toEqual(expectedState);
     });
+  });
+});
+
+describe('setUserSecretWord action dispatcher', () => {
+  let store;
+  let newState;
+  const userSecretWord = 'lunch';
+  const initialState = { secretWord: 'party' };
+
+  beforeEach(() => {
+    store = storeFactory(initialState);
+    store.dispatch(setUserSecretWord(userSecretWord));
+    newState = store.getState();
+  });
+
+  test('updates `secretWord` state correctly after entered word', () => {
+    expect(newState.secretWord).toBe(userSecretWord);
+  });
+  test('updates `userEnter` state correctly after entered word', () => {
+    expect(newState.userEnter).toBe('done');
   });
 });
