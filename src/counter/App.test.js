@@ -1,7 +1,7 @@
 import Enzyme from 'enzyme';
 import EnzymeAdapter from 'enzyme-adapter-react-16';
 import App from './App';
-import { findByTestAttr, setup } from '../jotto/testUtils';
+import { findByTestAttr, setup } from '../testUtils';
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
