@@ -7,6 +7,7 @@ describe('correctGuess', () => {
     const action = correctGuess();
     // expect(action).toBe({}); // for the immutability
     expect(action).toEqual({ type: actionTypes.CORRECT_GUESS });
+    expect(action).toStrictEqual({ type: actionTypes.CORRECT_GUESS });
   });
 });
 

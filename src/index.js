@@ -11,7 +11,8 @@ import { Provider } from 'react-redux';
 
 import store from './jotto/redux/configureStore';
 // import App from './counter/App';
-import App from './jotto/App';
+// import App from './jotto/Class/App';
+import App from './jotto/Function/App';
 
 import './index.css';
 
