@@ -1,21 +1,27 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
 import App from '.';
-import { findByTestAttr } from '../../../testUtils';
+import { findByTestAttr, storeFactory } from '../../../testUtils';
 import { getSecretWord as mockGetSecretWord } from '../../redux/actions';
 
 jest.mock('../../redux/actions');
 
 /**
- * Factory function to create a ShallowWrapper for the App component.
+ * Factory function to create a Wrapper for the App component.
  * @function setup
  * @param {Object} [initialState={}] - initial state for this setup.
- * @returns {ShallowWrapper}
+ * @returns {Wrapper}
  */
 const setup = () => {
   // const wrapper = shallow(<App />); // use mount, because useEffect not called on `shallow`
-  const wrapper = mount(<App />);
-  return wrapper;
+  // const wrapper = mount(<App />);
+  const store = storeFactory();
+  return mount(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+  );
 };
 
 describe('App', () => {

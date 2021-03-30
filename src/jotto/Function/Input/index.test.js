@@ -1,7 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
 import Input from '.';
-import { checkProps, findByTestAttr } from '../../../testUtils';
+import { checkProps, findByTestAttr, storeFactory } from '../../../testUtils';
 
 /*
 // Complety mock, when is used with destructuring
@@ -13,23 +14,25 @@ jest.mock('react', () => ({
 */
 
 /**
- * Factory function to create a ShallowWrapper for the GuessedWords component.
+ * Factory function to create a Wrapper for the GuessedWords component.
  * @function setup
  * @param {Object} [initialState={}] - initial state for this setup.
- * @returns {ShallowWrapper}
+ * @returns {Wrapper}
  */
-const setup = (success = false, secretWord = 'Party') => {
-  return shallow(<Input
-    success={success}
-    secretWord={secretWord}
-  />);
+const setup = (initialState = {}, secretWord = 'Party') => {
+  const store = storeFactory(initialState);
+  return mount(
+    <Provider store={store}>
+      <Input secretWord={secretWord} />
+    </Provider>,
+  );
 };
 
 describe('render', () => {
   let wrapper;
   describe('success is true', () => {
     beforeEach(() => {
-      wrapper = setup(true);
+      wrapper = setup({ success: true });
     });
     test('renders component without error', () => {
       const inputComponent = findByTestAttr(wrapper, 'component-input');
@@ -51,7 +54,7 @@ describe('render', () => {
 
   describe('success is false', () => {
     beforeEach(() => {
-      wrapper = setup();
+      wrapper = setup({ success: false });
     });
     test('renders component without error', () => {
       const inputComponent = findByTestAttr(wrapper, 'component-input');
@@ -72,7 +75,6 @@ describe('render', () => {
   });
 
   test('does not throw warning with expected props', () => {
-    wrapper = setup();
     const expectedProps = { secretWord: '' };
     checkProps(Input, expectedProps);
   });
@@ -86,7 +88,7 @@ describe('state controlled input field', () => {
   beforeEach(() => {
     mockSetCurrentGuess.mockClear();
     React.useState = jest.fn(() => ['', mockSetCurrentGuess]);
-    wrapper = setup();
+    wrapper = setup({ success: false });
   });
 
   afterAll(() => {
