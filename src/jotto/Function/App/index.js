@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import GuessedWords from '../../Class/GuessedWords';
 import Congrats from '../../Class/Congrats';
 import Input from '../Input';
@@ -9,10 +9,11 @@ function App() {
   // TODO: get props from shared state
   const success = useSelector(state => state.success);
   const guessedWords = useSelector(state => state.guessedWords);
-  // const secretWord = useSelector(state => state.secretWord);
+  const secretWord = useSelector(state => state.secretWord);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getSecretWord();
+    dispatch(getSecretWord());
   }, []);
 
   return (

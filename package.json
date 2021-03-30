@@ -81,6 +81,7 @@
   "homepage": "",
   "jest": {
     "verbose": true,
+    "resetMocks": false,
     "setupFilesAfterEnv": [
       "<rootDir>/src/setupTest.js"
     ],
