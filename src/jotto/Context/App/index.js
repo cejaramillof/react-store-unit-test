@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import GuessedWords from '../../Class/GuessedWords';
-import Congrats from '../../Class/Congrats';
-import Input from '../../Class/Input';
+import Congrats from '../Congrats';
+import Input from '../Input';
 import { getSecretWord } from '../../redux/actions';
+import GuessedWords from '../GuessedWords';
 import LanguageContext from '../LanguageContext';
 import LanguagePicker from '../LanguagePicker';
 
@@ -71,7 +71,7 @@ function App() {
       <LanguageContext.Provider value={state.language}>
         <LanguagePicker setLanguage={setLanguage} />
         <Congrats success={success} />
-        <Input />
+        <Input success={success} />
         <GuessedWords
           guessedWords={guessedWords}
         />
