@@ -64,7 +64,8 @@ function App() {
       </div>
     );
   }
-
+  // with useContext with avoid the prop drilling
+  // https://kentcdodds.com/blog/application-state-management-with-react
   return (
     <div data-test="component-app" className="container">
       <h1>Jotto</h1>
