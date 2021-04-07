@@ -5,6 +5,7 @@ import { getSecretWord } from '../../redux/actions';
 import GuessedWords from '../GuessedWords';
 import LanguageContext from '../LanguageContext';
 import LanguagePicker from '../LanguagePicker';
+import SuccessContext from '../SuccessContext';
 
 /**
  *
@@ -71,8 +72,10 @@ function App() {
       <h1>Jotto</h1>
       <LanguageContext.Provider value={state.language}>
         <LanguagePicker setLanguage={setLanguage} />
-        <Congrats success={success} />
-        <Input success={success} />
+        <SuccessContext.SuccessProvider>
+          <Congrats />
+          <Input />
+        </SuccessContext.SuccessProvider>
         <GuessedWords
           guessedWords={guessedWords}
         />
