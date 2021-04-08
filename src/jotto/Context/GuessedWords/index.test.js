@@ -43,7 +43,7 @@ describe('if there are words guessed', () => {
   ];
 
   beforeEach(() => {
-    wrapper = setup({ guessedWords });
+    wrapper = setup(guessedWords);
   });
 
   test('render without error', () => {
@@ -64,6 +64,10 @@ describe('if there are words guessed', () => {
     const indexTextSet = new Set(guessWordIndexes.map(wrapper => wrapper.text()));
     const expectedSet = new Set(guessedWords.map((word, index) => (index + 1).toString()));
     expect(indexTextSet).toEqual(expectedSet);
+  });
+  test('number of guesses is displayed correctly', () => {
+    const numberOfGuessesDiv = findByTestAttr(wrapper, 'total-guesses');
+    expect(numberOfGuessesDiv.text()).toContain(guessedWords.length);
   });
 });
 

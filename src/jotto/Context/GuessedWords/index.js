@@ -5,8 +5,8 @@ import LanguageContext from '../LanguageContext';
 
 const GuessedWords = () => {
   const [guessedWords] = GuessedWordsContext.useGuessedWords();
-  let contents;
   const language = React.useContext(LanguageContext);
+  let contents;
   if (guessedWords.length === 0) {
     contents = (
       <span data-test="guess-instructions">
@@ -36,6 +36,12 @@ const GuessedWords = () => {
             { guessedWordsRows }
           </tbody>
         </table>
+        <div data-test="total-guesses">
+          {stringsModule.getStringByLanguage(language, 'totalGuesses')}
+          :
+          {' '}
+          {guessedWords.length}
+        </div>
       </div>
     );
   }
