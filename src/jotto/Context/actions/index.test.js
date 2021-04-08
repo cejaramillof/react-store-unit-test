@@ -1,57 +1,81 @@
 import moxios from 'moxios';
 import { getSecretWord } from '.';
-import { storeFactory } from '../../../testUtils';
 
-describe('getSecretWord action creator', () => {
+describe('moxios tests', () => {
   beforeEach(() => {
-    moxios.install(); // receive instance of axios as a param
+    moxios.install();
   });
   afterEach(() => {
     moxios.uninstall();
   });
-  test('add response word to state', async () => {
-    const secretWord = 'party';
-    moxios.wait(() => {
-      const request = moxios.requests.mostRecent();
-      request.respondWith({
-        status: 200,
-        // response: secretWord,
-        response: { word: secretWord },
-      });
-    });
-    const mockSetSecretWord = jest.fn();
-    await getSecretWord(mockSetSecretWord);
-    expect(mockSetSecretWord).toHaveBeenCalledWith('party');
-  });
 
-  describe.skip('updates serverError state to `true`', () => {
-    test('when server returns 4xx status', () => {
-      const store = storeFactory();
+  describe('non-error response', () => {
+    const mockSetSecretWord = jest.fn();
+    const mockSetServerError = jest.fn();
+    const secretWord = { word: 'party' };
+
+    beforeEach(async () => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
-          status: 404,
+          status: 200,
+          response: secretWord,
         });
       });
-      return getSecretWord()
-        .then(() => {
-          const newState = store.getState();
-          expect(newState.serverError).toBe(true);
-        });
+
+      await getSecretWord(mockSetSecretWord, mockSetServerError);
+
     });
-    test('when server returns 5xx status', () => {
-      const store = storeFactory();
+    test('calls the getSecretWord callback on axios response', async () => {
+      expect(mockSetSecretWord).toHaveBeenCalledWith(secretWord.word);
+    });
+    test('does not call the setServerError callback on axios response', async () => {
+      expect(mockSetServerError).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('5xx error response', () => {
+    const mockSetSecretWord = jest.fn();
+    const mockSetServerError = jest.fn();
+
+    beforeEach(async () => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
           status: 500,
         });
       });
-      return getSecretWord()
-        .then(() => {
-          const newState = store.getState();
-          expect(newState.serverError).toBe(true);
+
+      await getSecretWord(mockSetSecretWord, mockSetServerError);
+
+    });
+    test('calls the getSecretWord callback on axios response', async () => {
+      expect(mockSetServerError).toHaveBeenCalledWith(true);
+    });
+    test('does not call the setServerError callback on axios response', async () => {
+      expect(mockSetSecretWord).not.toHaveBeenCalled();
+    });
+  });
+  describe('4xx error response', () => {
+    const mockSetSecretWord = jest.fn();
+    const mockSetServerError = jest.fn();
+
+    beforeEach(async () => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 404,
         });
+      });
+
+      await getSecretWord(mockSetSecretWord, mockSetServerError);
+
+    });
+    test('calls the getSecretWord callback on axios response', async () => {
+      expect(mockSetServerError).toHaveBeenCalledWith(true);
+    });
+    test('does not call the setServerError callback on axios response', async () => {
+      expect(mockSetSecretWord).not.toHaveBeenCalled();
     });
   });
 });
