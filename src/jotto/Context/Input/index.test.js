@@ -1,8 +1,10 @@
 import React from 'react';
-import { mount, ReactWrapper } from 'enzyme';
+import { mount } from 'enzyme';
 import Input from '.';
 import { checkProps, findByTestAttr } from '../../../testUtils';
 import LanguageContext from '../LanguageContext';
+import SuccessContext from '../SuccessContext';
+import GuessedWordsContext from '../GuessedWordsContext';
 
 /*
 // Complety mock, when is used with destructuring
@@ -22,7 +24,11 @@ jest.mock('react', () => ({
 const setup = ({ language = 'en', secretWord = 'party', success = false }) => {
   return mount(
     <LanguageContext.Provider value={language}>
-      <Input secretWord={secretWord} success={success} />
+      <SuccessContext.SuccessProvider value={[success, jest.fn()]}>
+        <GuessedWordsContext.GuessedWordsProvider>
+          <Input secretWord={secretWord} />
+        </GuessedWordsContext.GuessedWordsProvider>
+      </SuccessContext.SuccessProvider>
     </LanguageContext.Provider>,
   );
 };
@@ -35,8 +41,13 @@ describe('render', () => {
     });
     test('renders component without error', () => {
       const inputComponent = findByTestAttr(wrapper, 'component-input');
-      expect(inputComponent.length).toBe(1);
+      expect(inputComponent.length).toBe(0);
     });
+
+    test('input component does not show when success is true', () => {
+      expect(wrapper.isEmptyRender()).toBe(true);
+    });
+
     test('input box does not show', () => {
       const inputBox = findByTestAttr(wrapper, 'input-box');
       expect(inputBox.length).toBe(0);
