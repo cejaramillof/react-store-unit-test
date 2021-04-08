@@ -79,15 +79,22 @@ describe('guess secret word', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = setup({
-      secretWord: 'train',
+      secretWord: 'party',
       success: false,
       guessedWords: [{ guessedWord: 'agile', letterMatchCount: 1 }],
     });
+
+    const inputBox = findByTestAttr(wrapper, 'input-box');
+    const mockEvent = { target: { value: 'party' } };
+    inputBox.simulate('change', mockEvent);
+
+    const submitButton = findByTestAttr(wrapper, 'submit-button');
+    submitButton.simulate('click', { preventDefault() {} });
   });
 
   test('add row to guessedWords table', () => {
     const guessedWordNodes = findByTestAttr(wrapper, 'guessed-word');
-    expect(guessedWordNodes).toHaveLength(2);
+    expect(guessedWordNodes).toHaveLength(3);
   });
 
   test('displays congrats component', () => {
