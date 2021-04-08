@@ -93,7 +93,6 @@ function App() {
       <LanguageContext.Provider value={state.language}>
         <LanguagePicker setLanguage={setLanguage} />
         <GuessedWordsContext.GuessedWordsProvider>
-          <GuessedWords />
           { state.enterSecretWord ?
             <SecretWordEntry setEnterSecretWord={setEnterSecretWord} setSecretWord={setSecretWord} /> :
             (
