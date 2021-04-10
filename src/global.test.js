@@ -16,6 +16,23 @@ beforeAll(() => {
 
 const text = 'Hola Mundo';
 
+// .skip, .todo, .only
+
+describe.each([
+  ['Carlos'],
+  ['Tyrone'],
+])(
+  'Prueba con variable: %s', (name) => {
+    test(`saluda a: ${name}`, () => {
+      expect(`${text} a ${name}`).toEqual(`Hola Mundo a ${name}`);
+    });
+
+    test(`se despide de: ${name}`, () => {
+      expect(`Chao a ${name}`).toEqual(`Chao a ${name}`);
+    });
+  },
+);
+
 test('Debe contener un texto', () => {
   expect(text).toMatch(/Hola/);
 });
